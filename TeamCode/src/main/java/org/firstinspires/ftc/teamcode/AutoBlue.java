@@ -161,6 +161,10 @@ public class AutoBlue extends LinearOpMode {
 
     }
 
+    public void log(String main, String val){
+
+        telemetry.addData(main, val);
+    }
 
     @Override
     public void runOpMode() {
@@ -197,7 +201,7 @@ public class AutoBlue extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
 
 
-
+        log("color", Integer.toString(color_sensor.red() - color_sensor.blue()));
 
 
         waitForStart();
@@ -211,6 +215,7 @@ public class AutoBlue extends LinearOpMode {
 
         int diff = red - blue;
 
+        log("color", Integer.toString(color_sensor.red() - color_sensor.blue()));
 
         if(diff > 0){
             moveBackward(1/3);

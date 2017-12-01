@@ -34,6 +34,7 @@ public class TankDrive extends OpMode
     private Servo ClawL;
     private Servo ClawR;
     private ColorSensor color_sensor;
+    private Servo colorservo;
     public static double threshold = 0.2;
     @Override
     public void init()
@@ -53,10 +54,14 @@ public class TankDrive extends OpMode
         ClawL=hardwareMap.servo.get("ClawL");
         ClawR=hardwareMap.servo.get("ClawR");
 
-        //liftl=hardwareMap.dcMotor.get("liftl");
-        //liftr=hardwareMap.dcMotor.get("liftr");
+        //liftL=hardwareMap.dcMotor.get("liftl");
+        //liftR=hardwareMap.dcMotor.get("liftr");
         color_sensor = hardwareMap.colorSensor.get("color");
         color_sensor.enableLed(true);
+
+        colorservo = hardwareMap.servo.get("colorservo");
+
+        colorservo.setPosition(0.7);
 
     }
     //Helper method for resetting all motors to a stop
@@ -77,6 +82,37 @@ public class TankDrive extends OpMode
     {
 
 
+        if(Math.abs(gamepad2.left_stick_y) > threshold){
+            //liftL.setPower(Math.power(-gamepad2.left_stick_y, 3));
+        }
+        if(Math.abs(gamepad2.right_stick_y) > threshold){
+            //rightL.setPower(Math.power(gamepad2.right_stick_y, 3));
+        }
+
+        if(gamepad2.dpad_up){
+            //liftL.setPower(1);
+            //rightL.setPower(-1);
+        }
+
+        else if(gamepad2.dpad_down){
+            //liftL.setPower(-1);
+            //rightL.setPower(1);
+        }
+
+        else{
+            //liftL.setPower(0);
+            //rightL.setPower(0);
+        }
+
+        if(gamepad2.x){
+            ClawL.setPosition(1);
+            ClawR.setPosition(0);
+        }
+
+        else if(gamepad2.y){
+            ClawL.setPosition(0);
+            ClawR.setPosition(1);
+        }
 
          /*
           *  Checks if the y value is forward or backwards.

@@ -159,6 +159,10 @@ public class AutoRed extends LinearOpMode {
         pause(1/2);
 
     }
+    public void log(String main, String val){
+
+        telemetry.addData(main, val);
+    }
 
     @Override
     public void runOpMode() {
@@ -191,10 +195,11 @@ public class AutoRed extends LinearOpMode {
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
 
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // colorservo.setPosition(0.7);
+         colorservo.setPosition(0.7);
 
         int red = color_sensor.red();
 
@@ -202,6 +207,15 @@ public class AutoRed extends LinearOpMode {
 
         int diff = red - blue;
 
+        int x = 1;
+
+        while(x == 1) {
+            log("color", Integer.toString(color_sensor.red() - color_sensor.blue()));
+            pause(1);
+        }
+
+
+        log("color", Integer.toString(diff));
         if(diff > 0){
             moveForward(1/3);
         }
